@@ -29,7 +29,7 @@ const Dashboard = () => {
         const fetchDashboardData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch('http://localhost:5000/api/issues/dashboard', {
+                const res = await fetch('/api/issues/dashboard', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -38,7 +38,7 @@ const Dashboard = () => {
                 }
 
                 // Fetch Announcements
-                const annRes = await fetch('http://localhost:5000/api/announcements', {
+                const annRes = await fetch('/api/announcements', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (annRes.ok) {

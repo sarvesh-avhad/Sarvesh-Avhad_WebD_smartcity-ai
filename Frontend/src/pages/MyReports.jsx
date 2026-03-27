@@ -12,7 +12,7 @@ const MyReports = () => {
         const fetchReports = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch('http://localhost:5000/api/issues/my-reports', {
+                const res = await fetch('/api/issues/my-reports', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {

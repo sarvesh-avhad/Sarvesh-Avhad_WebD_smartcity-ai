@@ -27,7 +27,7 @@ const AdminDashboard = () => {
     const fetchAdminData = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/issues/admin/all', {
+            const res = await fetch('/api/issues/admin/all', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
     const handleStatusChange = async (issueId, newStatus) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5000/api/issues/admin/${issueId}/status`, {
+            const res = await fetch(`/api/issues/admin/${issueId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/announcements', {
+            const res = await fetch('/api/announcements', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -180,9 +180,13 @@ const AdminDashboard = () => {
                                         <td>{issue.createdBy?.name || 'Unknown'}</td>
                                         <td>{issue.location}</td>
                                         <td>
-                                            {issue.isUrgent ?
-                                                <span style={{ color: '#ef4444', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.25rem' }}><AlertCircle size={14} /> High</span>
-                                                : 'Normal'}
+                                            {issue.priorityScore >= 50 ? (
+                                                <span style={{ background: '#fee2e2', color: '#dc2626', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}><AlertCircle size={14} /> Critical ({issue.priorityScore})</span>
+                                            ) : issue.priorityScore >= 30 ? (
+                                                <span style={{ background: '#fef3c7', color: '#d97706', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}><AlertCircle size={14} /> Medium ({issue.priorityScore})</span>
+                                            ) : (
+                                                <span style={{ background: '#dcfce7', color: '#16a34a', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>Low ({issue.priorityScore || 0})</span>
+                                            )}
                                         </td>
                                         <td>
                                             <select

@@ -83,7 +83,7 @@ const SubmitIssue = () => {
         setError(null);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/issues', {
+            const res = await fetch('/api/issues', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

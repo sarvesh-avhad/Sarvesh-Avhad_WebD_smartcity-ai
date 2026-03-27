@@ -28,7 +28,7 @@ const NearbyIssues = () => {
     const handleUpvote = async (issueId) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5000/api/issues/${issueId}/upvote`, {
+            const res = await fetch(`/api/issues/${issueId}/upvote`, {
                 method: 'PUT',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -47,7 +47,7 @@ const NearbyIssues = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5000/api/issues/${issueId}/feedback`, {
+            const res = await fetch(`/api/issues/${issueId}/feedback`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const NearbyIssues = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5000/api/issues/nearby?location=${encodeURIComponent(searchTerm)}`, {
+            const res = await fetch(`/api/issues/nearby?location=${encodeURIComponent(searchTerm)}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {

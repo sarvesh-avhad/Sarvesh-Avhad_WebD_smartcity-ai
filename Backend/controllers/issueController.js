@@ -1,5 +1,31 @@
 const Issue = require('../models/Issue');
 
+// Priority Score Calculator Helper
+const calculatePriority = (category, isUrgent, upvotes) => {
+    let score = 0;
+
+    // Base Severity Weighting
+    const cat = (category || '').toLowerCase();
+    if (cat.includes('electric') || cat.includes('fire') || cat.includes('safety') || cat.includes('wire')) {
+        score += 50;
+    } else if (cat.includes('water') || cat.includes('sanitation') || cat.includes('garbage')) {
+        score += 30;
+    } else {
+        score += 10;
+    }
+
+    // Urgency Multiplier
+    if (isUrgent) {
+        score += 20;
+    }
+
+    // Community Upvote Multiplier
+    const upvoteCount = upvotes ? upvotes.length : 0;
+    score += upvoteCount * 5;
+
+    return score;
+};
+
 // Create a new issue (Report an Issue)
 exports.createIssue = async (req, res) => {
     try {
@@ -19,7 +45,8 @@ exports.createIssue = async (req, res) => {
             description,
             isUrgent: isUrgent || false,
             imageUrl: imageUrl || '',
-            createdBy: req.user.id // Extracted from JWT auth middleware
+            createdBy: req.user.id,
+            priorityScore: calculatePriority(category, isUrgent || false, [])
         });
 
         const savedIssue = await newIssue.save();
@@ -104,6 +131,8 @@ exports.toggleUpvote = async (req, res) => {
             issue.upvotes.splice(index, 1); // Remove upvote
         }
 
+        issue.priorityScore = calculatePriority(issue.category, issue.isUrgent, issue.upvotes);
+
         await issue.save();
         res.status(200).json(issue);
     } catch (err) {
@@ -143,7 +172,7 @@ exports.addFeedback = async (req, res) => {
 // Admin: Fetch all issues
 exports.getAllIssuesAdmin = async (req, res) => {
     try {
-        const issues = await Issue.find().sort({ createdAt: -1 }).populate('createdBy', 'name email');
+        const issues = await Issue.find().sort({ priorityScore: -1, createdAt: -1 }).populate('createdBy', 'name email');
 
         const total = issues.length;
         const pending = issues.filter(i => i.status === 'Pending').length;

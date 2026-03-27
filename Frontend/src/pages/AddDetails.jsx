@@ -16,7 +16,7 @@ const AddDetails = () => {
         setError(null);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/auth/details', {
+            const res = await fetch('/api/auth/details', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
