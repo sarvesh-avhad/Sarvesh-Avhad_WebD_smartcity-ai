@@ -1,23 +1,18 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, PlusCircle, User, LogOut, MapPin, Info, PhoneCall } from 'lucide-react';
+import { LayoutDashboard, LogOut } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const AdminSidebar = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userRole');
         navigate('/login');
     };
 
     const navItems = [
-        { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { path: '/submit-issue', label: 'Report Issue', icon: PlusCircle },
-        { path: '/nearby', label: 'Nearby Issues', icon: MapPin },
-        { path: '/my-reports', label: 'My Reports', icon: FileText },
-        { path: '/profile', label: 'Profile', icon: User },
-        { path: '/about', label: 'About', icon: Info },
-        { path: '/helpline', label: 'Helpline', icon: PhoneCall },
+        { path: '/admin/dashboard', label: 'All Issues Management', icon: LayoutDashboard },
     ];
 
     return (
@@ -55,4 +50,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default AdminSidebar;

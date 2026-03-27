@@ -63,6 +63,15 @@ exports.login = async (req, res) => {
             return res.status(400).json({ error: 'Invalid Credentials' });
         }
 
+        // --- STRICT ROLE ENFORCEMENT ---
+        // Ensure the user is logging in through the correct portal tab
+        const requestedRole = req.body.requestedRole || 'citizen';
+        if (user.role !== requestedRole) {
+            return res.status(403).json({
+                error: `Access denied. This account is registered as a ${user.role}. Please select the ${user.role} tab to login.`
+            });
+        }
+
         // Generate JWT
         const payload = { user: { id: user.id } };
         const token = jwt.sign(payload, getJwtSecret(), { expiresIn: '7d' });

@@ -1,7 +1,33 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Zap, Trash2, Droplet, AlertTriangle, MoreHorizontal, ArrowLeft, Wrench, AlertCircle } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import './SubmitIssue.css';
+
+// Fix default Leaflet marker icon issue in React
+const DefaultIcon = L.icon({
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
+
+const LocationMarker = ({ position, setPosition }) => {
+    useMapEvents({
+        click(e) {
+            setPosition(e.latlng);
+        },
+    });
+
+    return position === null ? null : (
+        <Marker position={position}></Marker>
+    );
+};
 
 const SubmitIssue = () => {
     const navigate = useNavigate();
@@ -9,9 +35,11 @@ const SubmitIssue = () => {
     const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');
     const [location, setLocation] = useState('');
+    const [position, setPosition] = useState({ lat: 28.6139, lng: 77.2090 }); // Default to Delhi
     const [description, setDescription] = useState('');
     const [isUrgent, setIsUrgent] = useState(false);
     const [fileName, setFileName] = useState('No file chosen');
+    const [imageString, setImageString] = useState('');
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -37,9 +65,16 @@ const SubmitIssue = () => {
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            setFileName(e.target.files[0].name);
+            const file = e.target.files[0];
+            setFileName(file.name);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImageString(reader.result);
+            };
+            reader.readAsDataURL(file);
         } else {
             setFileName('No file chosen');
+            setImageString('');
         }
     };
 
@@ -58,8 +93,11 @@ const SubmitIssue = () => {
                     title,
                     category,
                     location,
+                    latitude: position.lat,
+                    longitude: position.lng,
                     description,
-                    isUrgent
+                    isUrgent,
+                    imageUrl: imageString
                 })
             });
 
@@ -132,8 +170,22 @@ const SubmitIssue = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="location" className="form-label">Location:</label>
+                        <label htmlFor="location" className="form-label">Location Address:</label>
                         <input type="text" id="location" className="form-input" placeholder="Enter Location" value={location} onChange={e => setLocation(e.target.value)} required />
+                    </div>
+
+                    <div className="form-group">
+                        <label className="form-label">Pinpoint on Map:</label>
+                        <div style={{ height: '300px', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e2e8f0', zIndex: 0 }}>
+                            <MapContainer center={[28.6139, 77.2090]} zoom={12} style={{ height: '100%', width: '100%', zIndex: 1 }}>
+                                <TileLayer
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <LocationMarker position={position} setPosition={setPosition} />
+                            </MapContainer>
+                        </div>
+                        <p style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.5rem' }}>Click on the map to set the exact location of the issue.</p>
                     </div>
 
                     <div className="form-group">

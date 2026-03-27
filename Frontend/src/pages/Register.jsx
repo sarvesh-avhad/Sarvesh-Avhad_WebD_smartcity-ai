@@ -35,7 +35,7 @@ const Register = () => {
     return (
         <div className="auth-form-inner">
             <h3 className="auth-title">Create an Account</h3>
-            <p className="auth-subtitle">Join the SmartCity platform today</p>
+            <p className="auth-subtitle">Join the UrbanEye platform today</p>
 
             {error && <div style={{ color: '#ff4b4b', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
 

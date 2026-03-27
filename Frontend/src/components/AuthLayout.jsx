@@ -10,7 +10,7 @@ const AuthLayout = () => {
 
             <main className="auth-container">
                 <div className="auth-brand">
-                    <h2>SmartCity</h2>
+                    <img src="/logo.png" alt="UrbanEye Logo" className="auth-logo" />
                     <p>Login to access the citizen platform</p>
                 </div>
                 <div className="auth-form-wrapper">

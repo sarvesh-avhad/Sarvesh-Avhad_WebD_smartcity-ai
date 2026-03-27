@@ -17,13 +17,19 @@ const Login = () => {
             const res = await fetch('http://localhost:5000/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password, requestedRole: role })
             });
             const data = await res.json();
 
             if (res.ok) {
                 localStorage.setItem('token', data.token);
-                navigate('/dashboard');
+                localStorage.setItem('userRole', data.user.role);
+
+                if (data.user.role === 'admin') {
+                    navigate('/admin/dashboard');
+                } else {
+                    navigate('/dashboard');
+                }
             } else {
                 setError(data.error || 'Login failed');
             }

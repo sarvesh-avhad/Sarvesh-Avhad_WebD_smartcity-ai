@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     mobile: { type: String },
     district: { type: String },
     city: { type: String },
+    address: { type: String },
     onboarded: { type: Boolean, default: false },
 }, { timestamps: true });
 

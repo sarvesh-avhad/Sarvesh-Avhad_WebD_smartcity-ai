@@ -4,13 +4,15 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
 const issueRoutes = require('./routes/issueRoutes');
+const userRoutes = require('./routes/userRoutes');
+const announcementRoutes = require('./routes/announcementRoutes');
 
 dotenv.config();
 
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(cors());
 
 // MongoDB Connection
@@ -22,6 +24,8 @@ mongoose.connect(MONGO_URI)
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/issues', issueRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/announcements', announcementRoutes);
 
 // General Error Handler
 app.use((err, req, res, next) => {
