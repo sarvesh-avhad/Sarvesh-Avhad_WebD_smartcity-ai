@@ -33,7 +33,7 @@ const Login = () => {
             } else {
                 setError(data.error || 'Login failed');
             }
-        } catch (err) {
+        } catch (_err) {
             setError('Network error syncing with API');
         }
     };

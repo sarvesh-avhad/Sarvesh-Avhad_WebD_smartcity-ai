@@ -39,7 +39,7 @@ const AddDetails = () => {
             } else {
                 setError(data.error || 'Failed to update details');
             }
-        } catch (err) {
+        } catch (_err) {
             setError('Network error syncing with API');
         }
     };
@@ -116,7 +116,6 @@ const AddDetails = () => {
                             <option value="citizen">Citizen</option>
                             <option value="ngo">NGO Representative</option>
                             <option value="government">Government Official</option>
-                            <option value="admin">Administrator</option>
                         </select>
                     </div>
                 </div>

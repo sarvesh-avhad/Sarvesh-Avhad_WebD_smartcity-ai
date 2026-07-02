@@ -20,7 +20,7 @@ const NearbyIssues = () => {
                 const payload = JSON.parse(atob(token.split('.')[1]));
                 setUserId(payload.user.id);
             }
-        } catch (e) {
+        } catch (_e) {
             console.error('Failed to parse token');
         }
     }, []);
@@ -86,7 +86,7 @@ const NearbyIssues = () => {
                 setError('Failed to fetch nearby issues.');
                 setIssues([]);
             }
-        } catch (err) {
+        } catch (_err) {
             setError('Network error.');
             setIssues([]);
         } finally {

@@ -38,8 +38,8 @@ const SubmitIssue = () => {
     const [position, setPosition] = useState({ lat: 28.6139, lng: 77.2090 }); // Default to Delhi
     const [description, setDescription] = useState('');
     const [isUrgent, setIsUrgent] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [fileName, setFileName] = useState('No file chosen');
-    const [imageString, setImageString] = useState('');
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -67,14 +67,10 @@ const SubmitIssue = () => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
             setFileName(file.name);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageString(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setSelectedFile(file);
         } else {
             setFileName('No file chosen');
-            setImageString('');
+            setSelectedFile(null);
         }
     };
 
@@ -83,22 +79,24 @@ const SubmitIssue = () => {
         setError(null);
         try {
             const token = localStorage.getItem('token');
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('category', category);
+            formData.append('location', location);
+            formData.append('latitude', position.lat);
+            formData.append('longitude', position.lng);
+            formData.append('description', description);
+            formData.append('isUrgent', isUrgent);
+            if (selectedFile) {
+                formData.append('image', selectedFile);
+            }
+
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/issues', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    title,
-                    category,
-                    location,
-                    latitude: position.lat,
-                    longitude: position.lng,
-                    description,
-                    isUrgent,
-                    imageUrl: imageString
-                })
+                body: formData
             });
 
             if (res.ok) {
@@ -107,7 +105,7 @@ const SubmitIssue = () => {
                 const data = await res.json();
                 setError(data.error || 'Failed to submit issue');
             }
-        } catch (err) {
+        } catch (_err) {
             setError('Network error speaking to server');
         }
     };

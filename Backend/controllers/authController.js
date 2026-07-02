@@ -13,6 +13,11 @@ exports.register = async (req, res) => {
             return res.status(400).json({ error: 'Please enter all required fields' });
         }
 
+        // Prevent admin self-registration
+        if (role === 'admin') {
+            return res.status(403).json({ error: 'Admin accounts cannot be created through registration' });
+        }
+
         // Check for existing user
         let user = await User.findOne({ email });
         if (user) {
@@ -87,6 +92,11 @@ exports.login = async (req, res) => {
 exports.addDetails = async (req, res) => {
     try {
         const { mobile, district, city, role } = req.body;
+
+        // Prevent role escalation to admin
+        if (role === 'admin') {
+            return res.status(403).json({ error: 'Cannot change role to admin' });
+        }
 
         // Build update object based on what is provided
         const updateFields = {};

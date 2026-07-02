@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Mail, Lock, Shield } from 'lucide-react';
+import { User, Mail, Lock } from 'lucide-react';
 import './Login.css';
 
 const Register = () => {
     const navigate = useNavigate();
-    const [role, setRole] = useState('citizen');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +17,7 @@ const Register = () => {
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password, role })
+                body: JSON.stringify({ name, email, password, role: 'citizen' })
             });
             const data = await res.json();
 
@@ -31,7 +30,7 @@ const Register = () => {
             } else {
                 setError(data.error || 'Registration failed');
             }
-        } catch (err) {
+        } catch (_err) {
             setError('Network error syncing with API');
         }
     };
@@ -40,26 +39,6 @@ const Register = () => {
         <div className="auth-form-inner">
             <h3 className="auth-title">Create an Account</h3>
             <p className="auth-subtitle">Join the UrbanEye platform today</p>
-
-            {/* Role Selection Toggle */}
-            <div className="role-toggle-container">
-                <button
-                    type="button"
-                    className={`role-toggle-btn ${role === 'citizen' ? 'active' : ''}`}
-                    onClick={() => setRole('citizen')}
-                >
-                    <User size={18} />
-                    Citizen
-                </button>
-                <button
-                    type="button"
-                    className={`role-toggle-btn ${role === 'admin' ? 'active' : ''}`}
-                    onClick={() => setRole('admin')}
-                >
-                    <Shield size={18} />
-                    Admin
-                </button>
-            </div>
 
             {error && <div style={{ color: '#ff4b4b', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
 
@@ -114,7 +93,7 @@ const Register = () => {
                 </div>
 
                 <button type="submit" className="auth-submit-btn" style={{ marginTop: '1rem' }}>
-                    Create {role === 'admin' ? 'Admin' : 'Citizen'} Account
+                    Create Account
                 </button>
             </form>
 

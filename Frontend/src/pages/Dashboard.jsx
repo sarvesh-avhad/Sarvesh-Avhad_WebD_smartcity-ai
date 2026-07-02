@@ -53,12 +53,6 @@ const Dashboard = () => {
         fetchDashboardData();
     }, []);
 
-    const feedback = [
-        "The pothole on Main St is getting bigger.",
-        "Streetlights on 5th avenue are out again.",
-        "Great job fixing the park bench!"
-    ];
-
     const recentFeedbacks = data.recentIssues
         .flatMap(issue => (issue.feedbacks || []).map(fb => ({ ...fb, issueTitle: issue.title })))
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
