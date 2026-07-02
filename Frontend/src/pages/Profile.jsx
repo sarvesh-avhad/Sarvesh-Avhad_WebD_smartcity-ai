@@ -17,7 +17,11 @@ const Profile = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
+<<<<<<< HEAD
                 const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/users/profile', {
+=======
+                const res = await fetch('/api/users/profile', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -54,7 +58,11 @@ const Profile = () => {
 
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/users/profile', {
+=======
+            const res = await fetch('/api/users/profile', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

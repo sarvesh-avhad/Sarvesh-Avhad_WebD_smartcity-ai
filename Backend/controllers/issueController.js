@@ -29,8 +29,12 @@ const calculatePriority = (category, isUrgent, upvotes) => {
 // Create a new issue (Report an Issue)
 exports.createIssue = async (req, res) => {
     try {
+<<<<<<< HEAD
         const { title, category, location, latitude, longitude, description, isUrgent } = req.body;
         const imageUrl = req.file ? req.file.path : req.body.imageUrl;
+=======
+        const { title, category, location, latitude, longitude, description, isUrgent, imageUrl } = req.body;
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
 
         // Basic validation
         if (!title || !category || !location || !description) {

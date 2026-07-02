@@ -14,23 +14,37 @@ const Register = () => {
         e.preventDefault();
         setError(null);
         try {
+<<<<<<< HEAD
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password, role: 'citizen' })
+=======
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             });
             const data = await res.json();
 
             if (res.ok) {
                 localStorage.setItem('token', data.token);
+<<<<<<< HEAD
                 if (data.user && data.user.role) {
                     localStorage.setItem('userRole', data.user.role);
                 }
+=======
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 navigate('/add-details');
             } else {
                 setError(data.error || 'Registration failed');
             }
+<<<<<<< HEAD
         } catch (_err) {
+=======
+        } catch (err) {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             setError('Network error syncing with API');
         }
     };

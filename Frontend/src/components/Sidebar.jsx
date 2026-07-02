@@ -7,7 +7,10 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+<<<<<<< HEAD
         localStorage.removeItem('userRole');
+=======
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
         navigate('/login');
     };
 

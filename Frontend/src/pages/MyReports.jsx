@@ -12,7 +12,11 @@ const MyReports = () => {
         const fetchReports = async () => {
             try {
                 const token = localStorage.getItem('token');
+<<<<<<< HEAD
                 const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/issues/my-reports', {
+=======
+                const res = await fetch('/api/issues/my-reports', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {

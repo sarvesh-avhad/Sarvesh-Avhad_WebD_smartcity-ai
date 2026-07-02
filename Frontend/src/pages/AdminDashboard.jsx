@@ -27,7 +27,11 @@ const AdminDashboard = () => {
     const fetchAdminData = async () => {
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/issues/admin/all', {
+=======
+            const res = await fetch('/api/issues/admin/all', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {
@@ -48,7 +52,11 @@ const AdminDashboard = () => {
     const handleStatusChange = async (issueId, newStatus) => {
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/issues/admin/${issueId}/status`, {
+=======
+            const res = await fetch(`/api/issues/admin/${issueId}/status`, {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +80,11 @@ const AdminDashboard = () => {
 
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/announcements', {
+=======
+            const res = await fetch('/api/announcements', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

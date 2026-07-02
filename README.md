@@ -88,4 +88,7 @@ The frontend should now be running locally at `http://localhost:5173`, proxying 
 - **Advait Dahitule** 
 - **Soumya Juwatkar** 
 - **Ashish Chavan** 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f

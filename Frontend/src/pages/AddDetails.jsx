@@ -16,7 +16,11 @@ const AddDetails = () => {
         setError(null);
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/auth/details', {
+=======
+            const res = await fetch('/api/auth/details', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,6 +31,7 @@ const AddDetails = () => {
             const data = await res.json();
 
             if (res.ok) {
+<<<<<<< HEAD
                 if (data.user && data.user.role) {
                     localStorage.setItem('userRole', data.user.role);
                 }
@@ -40,6 +45,13 @@ const AddDetails = () => {
                 setError(data.error || 'Failed to update details');
             }
         } catch (_err) {
+=======
+                navigate('/dashboard');
+            } else {
+                setError(data.error || 'Failed to update details');
+            }
+        } catch (err) {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             setError('Network error syncing with API');
         }
     };
@@ -116,6 +128,10 @@ const AddDetails = () => {
                             <option value="citizen">Citizen</option>
                             <option value="ngo">NGO Representative</option>
                             <option value="government">Government Official</option>
+<<<<<<< HEAD
+=======
+                            <option value="admin">Administrator</option>
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                         </select>
                     </div>
                 </div>

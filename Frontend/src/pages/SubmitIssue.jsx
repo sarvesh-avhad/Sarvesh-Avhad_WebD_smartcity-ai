@@ -38,8 +38,13 @@ const SubmitIssue = () => {
     const [position, setPosition] = useState({ lat: 28.6139, lng: 77.2090 }); // Default to Delhi
     const [description, setDescription] = useState('');
     const [isUrgent, setIsUrgent] = useState(false);
+<<<<<<< HEAD
     const [selectedFile, setSelectedFile] = useState(null);
     const [fileName, setFileName] = useState('No file chosen');
+=======
+    const [fileName, setFileName] = useState('No file chosen');
+    const [imageString, setImageString] = useState('');
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -67,10 +72,21 @@ const SubmitIssue = () => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
             setFileName(file.name);
+<<<<<<< HEAD
             setSelectedFile(file);
         } else {
             setFileName('No file chosen');
             setSelectedFile(null);
+=======
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImageString(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setFileName('No file chosen');
+            setImageString('');
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
         }
     };
 
@@ -79,6 +95,7 @@ const SubmitIssue = () => {
         setError(null);
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const formData = new FormData();
             formData.append('title', title);
             formData.append('category', category);
@@ -97,6 +114,24 @@ const SubmitIssue = () => {
                     'Authorization': `Bearer ${token}`
                 },
                 body: formData
+=======
+            const res = await fetch('/api/issues', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    title,
+                    category,
+                    location,
+                    latitude: position.lat,
+                    longitude: position.lng,
+                    description,
+                    isUrgent,
+                    imageUrl: imageString
+                })
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             });
 
             if (res.ok) {
@@ -105,7 +140,11 @@ const SubmitIssue = () => {
                 const data = await res.json();
                 setError(data.error || 'Failed to submit issue');
             }
+<<<<<<< HEAD
         } catch (_err) {
+=======
+        } catch (err) {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             setError('Network error speaking to server');
         }
     };

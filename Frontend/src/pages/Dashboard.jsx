@@ -29,7 +29,11 @@ const Dashboard = () => {
         const fetchDashboardData = async () => {
             try {
                 const token = localStorage.getItem('token');
+<<<<<<< HEAD
                 const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/issues/dashboard', {
+=======
+                const res = await fetch('/api/issues/dashboard', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -38,7 +42,11 @@ const Dashboard = () => {
                 }
 
                 // Fetch Announcements
+<<<<<<< HEAD
                 const annRes = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/announcements', {
+=======
+                const annRes = await fetch('/api/announcements', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (annRes.ok) {
@@ -53,6 +61,15 @@ const Dashboard = () => {
         fetchDashboardData();
     }, []);
 
+<<<<<<< HEAD
+=======
+    const feedback = [
+        "The pothole on Main St is getting bigger.",
+        "Streetlights on 5th avenue are out again.",
+        "Great job fixing the park bench!"
+    ];
+
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
     const recentFeedbacks = data.recentIssues
         .flatMap(issue => (issue.feedbacks || []).map(fb => ({ ...fb, issueTitle: issue.title })))
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))

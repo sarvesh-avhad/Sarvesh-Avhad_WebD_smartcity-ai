@@ -14,7 +14,11 @@ const Login = () => {
         e.preventDefault();
         setError(null);
         try {
+<<<<<<< HEAD
             const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/auth/login', {
+=======
+            const res = await fetch('/api/auth/login', {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password, requestedRole: role })
@@ -33,7 +37,11 @@ const Login = () => {
             } else {
                 setError(data.error || 'Login failed');
             }
+<<<<<<< HEAD
         } catch (_err) {
+=======
+        } catch (err) {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             setError('Network error syncing with API');
         }
     };

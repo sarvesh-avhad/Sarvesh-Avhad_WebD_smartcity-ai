@@ -6,18 +6,25 @@ const getJwtSecret = () => process.env.JWT_SECRET || 'fallback_secret_for_local_
 
 exports.register = async (req, res) => {
     try {
+<<<<<<< HEAD
         const { name, email, password, role } = req.body;
+=======
+        const { name, email, password } = req.body;
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
 
         // Validation
         if (!name || !email || !password) {
             return res.status(400).json({ error: 'Please enter all required fields' });
         }
 
+<<<<<<< HEAD
         // Prevent admin self-registration
         if (role === 'admin') {
             return res.status(403).json({ error: 'Admin accounts cannot be created through registration' });
         }
 
+=======
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
         // Check for existing user
         let user = await User.findOne({ email });
         if (user) {
@@ -29,7 +36,10 @@ exports.register = async (req, res) => {
             name,
             email,
             password,
+<<<<<<< HEAD
             role: role || 'citizen',
+=======
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
         });
 
         // Hash password
@@ -93,11 +103,14 @@ exports.addDetails = async (req, res) => {
     try {
         const { mobile, district, city, role } = req.body;
 
+<<<<<<< HEAD
         // Prevent role escalation to admin
         if (role === 'admin') {
             return res.status(403).json({ error: 'Cannot change role to admin' });
         }
 
+=======
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
         // Build update object based on what is provided
         const updateFields = {};
         if (mobile) updateFields.mobile = mobile;

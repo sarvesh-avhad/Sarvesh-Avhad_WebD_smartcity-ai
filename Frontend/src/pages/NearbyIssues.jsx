@@ -20,7 +20,11 @@ const NearbyIssues = () => {
                 const payload = JSON.parse(atob(token.split('.')[1]));
                 setUserId(payload.user.id);
             }
+<<<<<<< HEAD
         } catch (_e) {
+=======
+        } catch (e) {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             console.error('Failed to parse token');
         }
     }, []);
@@ -28,7 +32,11 @@ const NearbyIssues = () => {
     const handleUpvote = async (issueId) => {
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/issues/${issueId}/upvote`, {
+=======
+            const res = await fetch(`/api/issues/${issueId}/upvote`, {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'PUT',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -47,7 +55,11 @@ const NearbyIssues = () => {
 
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/issues/${issueId}/feedback`, {
+=======
+            const res = await fetch(`/api/issues/${issueId}/feedback`, {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +88,11 @@ const NearbyIssues = () => {
 
         try {
             const token = localStorage.getItem('token');
+<<<<<<< HEAD
             const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/issues/nearby?location=${encodeURIComponent(searchTerm)}`, {
+=======
+            const res = await fetch(`/api/issues/nearby?location=${encodeURIComponent(searchTerm)}`, {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {
@@ -86,7 +102,11 @@ const NearbyIssues = () => {
                 setError('Failed to fetch nearby issues.');
                 setIssues([]);
             }
+<<<<<<< HEAD
         } catch (_err) {
+=======
+        } catch (err) {
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             setError('Network error.');
             setIssues([]);
         } finally {

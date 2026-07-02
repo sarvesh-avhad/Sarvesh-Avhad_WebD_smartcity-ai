@@ -1,7 +1,11 @@
 const About = () => {
     return (
         <div className="page-container animate-fade-in">
+<<<<<<< HEAD
             <h1 className="page-title">About UrbanEye</h1>
+=======
+            <h1 className="page-title">About SmartCity</h1>
+>>>>>>> 603d14ae9636dbd9f8b5c542feca509374fce50f
             <div style={{ backgroundColor: 'var(--color-surface)', padding: '2rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--color-border)' }}>
                 <h2>Our Mission</h2>
                 <p style={{ marginTop: '1rem', color: 'var(--color-text-muted)', lineHeight: '1.6' }}>
